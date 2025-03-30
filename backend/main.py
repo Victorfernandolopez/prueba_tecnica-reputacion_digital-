@@ -1,13 +1,18 @@
 from fastapi import FastAPI #importacion de fastapi
 from fastapi.responses import JSONResponse #importacion de JSONResponse para respuestas personalizadas
+from fastapi.staticfiles import StaticFiles #importacion de StaticFiles para servir archivos estaticos
 import os #importacion de os para manejar rutas de archivos
 
 import json
 from pathlib import Path # importamos Path para manejar rutas de archivos
 
 
+
 # creamos una instancia de FastAPI
 app = FastAPI()
+
+# servimos los archivos estáticos del frontend
+app.mount("/", StaticFiles(directory=Path(__file__).parent / "static", html=True), name="static")
 
 @app.get("/data")# este decorador permite definir una ruta para la api al utilizar el metodo get
 
