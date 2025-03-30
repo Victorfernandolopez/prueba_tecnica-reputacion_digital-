@@ -11,9 +11,6 @@ from pathlib import Path # importamos Path para manejar rutas de archivos
 # creamos una instancia de FastAPI
 app = FastAPI()
 
-# servimos los archivos estáticos del frontend
-app.mount("/", StaticFiles(directory=Path(__file__).parent / "static", html=True), name="static")
-
 @app.get("/data")# este decorador permite definir una ruta para la api al utilizar el metodo get
 
 def get_data():
@@ -33,3 +30,6 @@ def get_data():
     else:
         #si no existe, devolvemos un error 404
         return JSONResponse(status_code=404, content={"error": "data.json no encontrado"})
+
+# servimos los archivos estáticos del frontend
+app.mount("/", StaticFiles(directory=Path(__file__).parent / "static", html=True), name="static")
